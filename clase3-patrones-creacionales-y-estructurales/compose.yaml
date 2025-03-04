@@ -1,0 +1,25 @@
+services:
+  app:
+    profiles: [prod]
+    build: ./app/
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mail_server
+  app.dev:
+    profiles: [dev]
+    build: ./app/
+    command: "npm run dev"
+    develop:
+      watch:
+        - action: sync
+          path: ./app/
+          target: /app/
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mail_server
+  mail_server:
+    build: ./mailServer/
+    ports:
+      - "3000:3000"
