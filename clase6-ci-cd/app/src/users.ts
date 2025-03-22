@@ -2,7 +2,7 @@ import { EmailSend, NotificationSender, SMSSend } from './Notifier.js';
 import { Subscriber } from './Subscriber.js';
 import Notification from './types/Notification.js';
 
-enum NotificationMethod {
+export enum NotificationMethod {
     EMAIL,
     SMS,
 }
