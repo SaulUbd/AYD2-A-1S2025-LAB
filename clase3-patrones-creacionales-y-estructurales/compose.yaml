@@ -1,3 +1,4 @@
+name: ayd2
 services:
   app:
     profiles: [prod]

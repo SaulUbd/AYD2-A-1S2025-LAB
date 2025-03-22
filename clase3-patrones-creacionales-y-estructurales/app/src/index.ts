@@ -26,10 +26,9 @@ app.delete('/sub/:id', (req, res) => {
     res.send(`${user.name} has been unsubscribed`);
 });
 
-app.post('/notification', (req, res) => {
+app.post('/notification', async (req, res) => {
     const notification = req.body as Notification;
-    publisher.notify(notification);
-    console.log('cambio');
+    await publisher.notify(notification);
     res.send('Notifications sent');
 });
 

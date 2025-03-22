@@ -40,9 +40,12 @@ export class SMSSend extends NotificationStrat {
             `,
         };
 
-        await fetch('http://mailServer/sms', {
+        await fetch('http://mail_server:3000/sms', {
             method: 'post',
             body: JSON.stringify(notif),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
     }
 }
@@ -59,11 +62,12 @@ export class EmailSend extends NotificationStrat {
             content: notification.content,
         };
 
-        console.log('cambio dentro de laboratorio');
-
-        await fetch('http://mailServer/email', {
+        await fetch('http://mail_server:3000/email', {
             method: 'post',
             body: JSON.stringify(notif),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
     }
 }
