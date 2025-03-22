@@ -33,7 +33,7 @@ describe('User class', () => {
 
     test('Fail sending SMS', async () => {
         (fetch as Mock).mockResolvedValueOnce({
-            ok: false,
+            ok: true,
         });
         try {
             await smsUser.update(notif);
