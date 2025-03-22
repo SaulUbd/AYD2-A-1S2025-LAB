@@ -1,0 +1,22 @@
+name: CI/CD demo
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+    branches:
+      - develop
+defaults:
+  run:
+    working-directory: ./clase6-ci-cd/app/
+jobs:
+  build_and_test:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - name: Install deps
+      run: npm install
+    - name: Build
+      run: npm run build
+    - name: Test
+      run: npm run test

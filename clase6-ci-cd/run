@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+function dev() {
+    COMPOSE_PROFILES=dev docker compose up --build --watch
+}
+
+function prod() {
+    COMPOSE_PROFILES=prod docker compose up --build
+}
+
+function clean() {
+    COMPOSE_PROFILES=* docker compose down -v --remove-orphans
+}
+
+eval "$@"
