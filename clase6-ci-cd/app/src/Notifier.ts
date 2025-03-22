@@ -10,7 +10,7 @@ abstract class NotificationStrat {
         this.user = user;
     }
 
-    abstract send(notification: Notification): Promise<void>;
+    abstract send(notification: Notification): Promise<boolean>;
 }
 
 export class NotificationSender {
@@ -22,7 +22,11 @@ export class NotificationSender {
 
     async send(notification: Notification): Promise<void> {
         if (!this.strategy) throw new Error('strategy not defined');
-        await this.strategy.send(notification);
+        const result = await this.strategy.send(notification);
+
+        if (!result) {
+            throw new Error('There was an error when sending a notification');
+        }
     }
 }
 
@@ -40,13 +44,15 @@ export class SMSSend extends NotificationStrat {
             `,
         };
 
-        await fetch('http://mail_server:3000/sms', {
+        const res = await fetch('http://mail_server:3000/sms', {
             method: 'post',
             body: JSON.stringify(notif),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
+
+        return res.ok;
     }
 }
 
@@ -62,12 +68,14 @@ export class EmailSend extends NotificationStrat {
             content: notification.content,
         };
 
-        await fetch('http://mail_server:3000/email', {
+        const res = await fetch('http://mail_server:3000/email', {
             method: 'post',
             body: JSON.stringify(notif),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
+
+        return res.ok;
     }
 }
