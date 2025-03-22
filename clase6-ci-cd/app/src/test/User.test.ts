@@ -42,6 +42,6 @@ describe('User class', () => {
                 'There was an error when sending a notification'
             );
         }
-        expect(fetch).toBeCalled();
+        expect(true).toBe(false);
     });
 });
